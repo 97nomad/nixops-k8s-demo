@@ -27,6 +27,7 @@
         apiserver = {
           securePort = 443;
           advertiseAddress = "192.168.1.72";
+          allowPrivileged = true;
         };
 
         addons.dns.enable = true;
@@ -34,7 +35,11 @@
           enable = true;
         };
 
-        kubelet.extraOpts = "--fail-swap-on=false";
+        kubelet.extraOpts = ''
+          --fail-swap-on=false
+          --root-dir=/var/lib/kubelet
+          --volume-plugin-dir=/var/lib/kubelet/volumeplugins
+        '';
       };
     };
 
@@ -69,7 +74,11 @@
 
        addons.dns.enable = true;        
         
-       kubelet.extraOpts = "--fail-swap-on=false";
+       kubelet.extraOpts = ''
+          --fail-swap-on=false
+          --root-dir=/var/lib/kubelet
+          --volume-plugin-dir=/var/lib/kubelet/volumeplugins
+        '';
      };
     };    
 }
